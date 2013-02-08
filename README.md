@@ -1,4 +1,4 @@
-# Jekyllplate
+# JekyllMate
 A Jekyll starting point.
 
 * * *
@@ -43,4 +43,4 @@ This is used to render the site's index. It is essntially a post loop wrapped in
 
 ### Thanks
 
-Jekyllplate is based off Necolas Gallagher's [Jekyll Boilerplate](https://github.com/necolas/jekyll-boilerplate).
+JekyllMate is based off Necolas Gallagher's [Jekyll Boilerplate](https://github.com/necolas/jekyll-boilerplate).
