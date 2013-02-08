@@ -1,4 +1,0 @@
-auto: true
-server: true
-markdown: rdiscount
-exclude: [gh-pages]
