@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Jekyll Boilerplate
+title: JekyllMate - An easy starting point for any Jekyll project
 ---
 
 
@@ -9,6 +9,6 @@ title: Jekyll Boilerplate
 {% for post in site.posts %}
 
     {{ post.date | date: "%B %e, %Y" }}
-    <a href="{{ post.url }}">{{ post.title }}</a>
+    <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
 
 {% endfor %}

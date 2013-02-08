@@ -1,16 +1,38 @@
-#############################################################################
+require 'rubygems'
+require 'rake'
+require 'rdoc'
+require 'date'
+
+#################################################################################
 #
-# Site tasks  // taken from http://jekyllrb.com
+# Site   // taken from http://jekyllrb.com
 #
-#############################################################################
+# Usage: "rake site:task"
+# Options:
+#   rake site:generate    "Generate Jekyll site"
+#   rake site:preview     "Generate and view Jekyll site locally w/server mode"
+#   rake site:publish     "Commit generated Jekyll site to local gh-pages branch, push to remote gh-pages branch, then commit/push base Jekyll site."
+#
+#   rake site:task
+#   rake site:task
+#   rake site:task
+#   rake site:task
+#################################################################################
 
 namespace :site do
-  desc "Generate and view the site locally"
+
+  desc "Generate Jekyll site"
+  task :generate do
+    puts "Generating Site with Jekyll"
+    system "jekyll --no-server --no-auto"
+  end
+
+  desc "Generate and view Jekyll site locally w/server mode"
   task :preview do
     require "launchy"
 
-    # Yep, it's a hack! Wait a few seconds for the Jekyll site to generate and
-    # then open it in a browser. Someday we can do better than this, I hope.
+    # This uses the launchy gem to open our web browser.
+    # While not necessary, it's a nicety.
     Thread.new do
       sleep 4
       puts "Opening in browser..."
@@ -19,38 +41,36 @@ namespace :site do
 
     # Generate the site in server mode.
     puts "Running Jekyll..."
-    Dir.chdir("site") do
-      sh "#{File.expand_path('bin/jekyll', File.dirname(__FILE__))} serve --watch"
-    end
+    sh "jekyll --server --auto"
   end
 
   desc "Commit the local site to the gh-pages branch and publish to GitHub Pages"
   task :publish do
-    # Failsafe. Remove this once it has been done.
-    puts "Make sure to merge #583 into gh-pages before deploying."
-    exit(1)
 
     # Ensure the gh-pages dir exists so we can generate into it.
     puts "Checking for gh-pages dir..."
     unless File.exist?("./gh-pages")
       puts "No gh-pages directory found. Run the following commands first:"
-      puts "  `git clone git@github.com:mojombo/jekyll gh-pages"
+      puts "  `git clone git://github.com/ggamel/jekyllplate.git gh-pages"
       puts "  `cd gh-pages"
       puts "  `git checkout gh-pages`"
+      puts "  `git branch -d master`"
+      puts "  `git branch`"
       exit(1)
     end
 
+    # Ensure _site has been generated
+    Rake::Task['site:generate'].invoke
+
     # Ensure gh-pages branch is up to date.
-    Dir.chdir('gh-pages') do
-      sh "git pull origin gh-pages"
-    end
+    # Dir.chdir('gh-pages') do
+    #   sh "git pull origin gh-pages"
+    # end
 
     # Copy to gh-pages dir.
     puts "Copying site to gh-pages branch..."
-    Dir.glob("site/*") do |path|
-      next if path == "_site"
-      sh "cp -R #{path} gh-pages/"
-    end
+    sh "cp -R _site/ gh-pages/"
+    sh "rm -R _site/"
 
     # Commit and push.
     puts "Committing and pushing to GitHub Pages..."
@@ -62,4 +82,5 @@ namespace :site do
     end
     puts 'Done.'
   end
+
 end

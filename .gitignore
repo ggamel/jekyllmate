@@ -15,5 +15,6 @@
 Thumbs.db
 .cache
 
-# Static site output
-_site
+# Jekyll static site output
+_site/
+gh-pages/

@@ -1,3 +1,5 @@
 auto: true
+url: .
 server: true
 markdown: rdiscount
+exclude: [gh-pages, Rakefile]
