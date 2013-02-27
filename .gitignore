@@ -15,6 +15,9 @@
 Thumbs.db
 .cache
 
+# CodeKit.app config file
+codekit-config.json
+
 # Jekyll static site output
 _site/
 gh-pages/

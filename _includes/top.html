@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>{% if page.title %}{{ page.title }} &middot; {{ site.name }}{% else %}{{ site.name }}{% endif %}</title>
+  {% if page.custom_meta_description %}
+    <meta name="description" content="{{ page.custom_meta_description }}" />
+  {% else %}
+    <meta name="description" content="{{ site.description }}" />
+  {% endif %}
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-114.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-144.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144.png" />
+  <link rel="logo" type="image/svg" href="{{ site.url }}}/logo.svg" />
+  <link rel="fluid-icon" href="{{ site.url }}}/fluidicon.png" title="{{ site.name }}" />
+  <meta name="msapplication-TileImage" content="/windows-tile.png">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="{{ site.url }}/css/style.css" />
+  <script src="{{ site.url }}/js/vendor/modernizr-2.6.2.min.js"></script>
+</head>

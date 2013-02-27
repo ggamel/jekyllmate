@@ -1,17 +1,30 @@
 require 'rubygems'
 require 'rake'
-require 'rdoc'
-require 'date'
+
+#################################################################################
+# Site-specific Config variables
+#################################################################################
+## -- Rsync Deploy config -- ##
+# Be sure your public key is listed in your server's ~/.ssh/authorized_keys file
+ssh_user       = "user@domain.com"
+ssh_port       = "22"
+document_root  = "~/website.com/"
+rsync_delete   = false
+rsync_args     = ""  # Any extra arguments to pass to rsync
+deploy_default = "rsync"
+#################################################################################
+
 
 #################################################################################
 #
-# Site   // taken from http://jekyllrb.com
+# Site Tasks
 #
 # Usage: "rake site:task"
+#
 # Options:
 #   rake site:generate    "Generate Jekyll site"
 #   rake site:preview     "Generate and view Jekyll site locally w/server mode"
-#   rake site:publish     "Commit generated Jekyll site to local gh-pages branch, push to remote gh-pages branch, then commit/push base Jekyll site."
+#   rake site:publish     "Commit/Push _site/ to local/remote gh-pages branches
 #
 #   rake site:task
 #   rake site:task
@@ -55,7 +68,7 @@ namespace :site do
       puts "  `cd gh-pages"
       puts "  `git checkout gh-pages`"
       puts "  `git branch -d master`"
-      puts "  `git branch`"
+      puts "  `git branch`" # Ensure only gh-pages branch remains
       exit(1)
     end
 
@@ -81,6 +94,18 @@ namespace :site do
       sh "git push origin gh-pages"
     end
     puts 'Done.'
+  end
+
+  # Taken from https://github.com/imathis/octopress
+  # TODO: replace variables
+  desc "Deploy website via rsync"
+  task :rsync do
+    exclude = ""
+    if File.exists?('./rsync-exclude')
+      exclude = "--exclude-from '#{File.expand_path('./rsync-exclude')}'"
+    end
+    puts "## Deploying website via Rsync"
+    ok_failed system("rsync -avze 'ssh -p #{ssh_port}' #{exclude} #{rsync_args} #{"--delete" unless rsync_delete == false} #{public_dir}/ #{ssh_user}:#{document_root}")
   end
 
 end

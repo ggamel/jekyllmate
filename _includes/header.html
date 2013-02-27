@@ -1,0 +1,22 @@
+<header role="banner">
+  <h1>
+    <a href="{{ site.url }}/">
+      <span>JekyllMate</span>
+      <img src="{{ site.url }}/img/logo-2x.png" width="249px" height="115px" alt="">
+    </a>
+  </h1>
+    <nav role="navigation">
+      <ul>
+        <li {% if page.overview %}class="current"{% endif %}>
+          <a href="{{ site.url }}/">Overview</a>
+        </li>
+        <li {% unless page.overview %}class="current"{% endunless %}>
+          <a href="{{ site.url }}/docs">Documentation</a>
+        </li>
+        <li class="">
+          <a href="https://github.com/mojombo/jekyll">View on GitHub</a>
+        </li>
+      </ul>
+    </nav> <!-- /nav -->
+  </div>
+</header>

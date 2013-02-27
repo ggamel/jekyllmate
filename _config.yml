@@ -1,5 +1,10 @@
 auto: true
-url: .
 server: true
+permalink: /:categories/:title
+url: .
 markdown: rdiscount
-exclude: [gh-pages, Rakefile]
+exclude: [gh-pages, Rakefile, README.md]
+gauges_id:
+google_analytics_id:
+
+description:
